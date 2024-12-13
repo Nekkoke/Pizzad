@@ -29,9 +29,13 @@ module Pizzad
     # in config/environments, which are processed later.
     #
     # config.time_zone = "Central Time (US & Canada)"
+
+    config.time_zone = "Tokyo"
     # config.eager_load_paths << Rails.root.join("extras")
 
     # Don't generate system test files.
     config.generators.system_tests = nil
+
+    config.action_controller.permit_all_parameters = true
   end
 end
