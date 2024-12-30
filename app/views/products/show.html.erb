@@ -1,0 +1,39 @@
+<h1><%= @products.name %></h1>
+<p><%= number_to_currency(@products.price, unit: "¥", precision: 0) %></p>
+<p><%= @products.explanation %></p>
+<%= image_tag(@products.image_url, width: 250, height: 250)  %>
+<br><br>
+    <h2><%= "注文の詳細" %></h2>
+<% if @show_size || @show_toppings %>
+  <%= form_with url: add_orders_path, method: :post, local: true do |form| %>
+
+    <h3><%= "個数" %></h3>
+      <%= form.label :quantity, "個数を選んでください" %>
+      <%= form.select :quantity, options_for_select(@quantity) %><br><br>
+
+    <% if @show_size %>
+      <h3><%= "サイズ" %></h3>
+      <%= form.label :size, "サイズを選んでください" %>
+      <%= form.select :size, options_for_select(@size) %><br>
+    <% end %>
+    <br>
+
+    <% if @show_toppings %>
+      <h3><%= "オプション" %></h3>
+      <%= form.label :topping, "オプションを選んでください" %>
+      <%= form.select :topping, options_for_select(@toppings) %>
+    <% end %>
+
+    <%= form.hidden_field :item_id, value: @products.id %> <!-- カートの設定 -->
+    <%= form.hidden_field :name, value: @products.name %>
+    <%= form.hidden_field :price, value: @products.price %>
+    <%= form.submit "カートへ" %>
+  <% end %>
+<% else %>
+  <%= form_with url: add_orders_path, method: :get, local: true do |form| %>
+    <%= form.hidden_field :item_id, value: @products.id %> <!-- カートの設定 -->
+    <%= form.hidden_field :name, value: @products.name %>
+    <%= form.hidden_field :price, value: @products.price %> 
+    <%= form.submit "カートへ" %>
+  <% end %>
+<% end %>

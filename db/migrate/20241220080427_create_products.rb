@@ -8,6 +8,7 @@ class CreateProducts < ActiveRecord::Migration[7.0]
       t.boolean :kids,null:false#子供向け
       t.boolean :recommend,null:false#おすすめ
       t.string :explanation#紹介文
+      t.string :image_url #画像追加
       t.timestamps
     end
   end

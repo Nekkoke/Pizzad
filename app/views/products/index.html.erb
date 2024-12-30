@@ -1,0 +1,45 @@
+<h1>メニュー</h1>
+
+<%= form_tag :search_products, method: :get, class: "search" do %>
+  <%= text_field_tag "q", params[:q] %>
+  <%= submit_tag "検索" %>
+
+  <%= radio_button_tag("商品検索", "pizza", checked = false) %>
+    <%= "ピザ" %>
+  <%= radio_button_tag("商品検索", "side",  checked = false) %>
+    <%= "サイド" %>
+  <%= radio_button_tag("商品検索", "drink", checked = false) %>
+    <%= "ドリンク" %>
+    <%= radio_button_tag("商品検索", "指定なし", checked = true) %>
+    <%= "解除" %>
+<% end %>
+  <br>
+
+<div class="pizza-list">
+  <% @products.each do |product| %>
+    <div class="pizza-item">
+      <%= link_to image_tag(product.image_url), product_path(product) %>
+      <h2><%= product.name %></h2>
+      <p><%= number_to_currency(product.price, unit: "¥", precision: 0) %></p>
+      <p><%= product.explanation %></p>
+    </div>
+  <% end %>
+</div>
+
+<br>
+    <h3>広告</h3>
+    <%= image_tag "advertise.png", class: "ad-image", alt: "広告画像" , width: 300, height: 300%>
+  </aside>
+</div>
+
+
+
+
+
+
+
+
+
+
+
+

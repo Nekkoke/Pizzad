@@ -1,15 +1,32 @@
-sorts = %w(pizza side drink)
-names = %w(formaggi margherita pescatore pinapoo quattro 
-           nuggets potetofry cola genger whitewine) #入れたい商品に合わせて自由に
-0.upto(9) do |idx|
-    Product.create(
-        kinds: sorts[idx % sorts.size],
-        name: names[idx],
-        price:[300, 500, 700, 1000, 1500].sample,  #価格設定も自由に決める .sampleでランダム
-        published: true,
-        kids: false,
-        recommend: true,
-        explanation: "ここにステキな商品紹介を入れよう"
-    )
-    
-end
+#商品一覧
+Product.create([
+    {name: "フォルマッジョ", price: 990, kinds: "pizza", published: true, kids: false, 
+    recommend: true, explanation: "4種のチーズが濃厚なピザ。", image_url: 'formaggi.webp'},
+
+    {name: "マルゲリータ", price: 950, kinds: "pizza", published: true, kids: false, 
+    recommend: false, explanation: "トマトの酸味とモッツァレラのコクが美味しいピザ。", image_url: 'margherita.webp'},
+
+    {name: "ペスカトーレ", price: 1600, kinds: "pizza", published: true, kids: true, 
+    recommend: true, explanation: "魚介類をふんだんに詰め込んだピザ。", image_url: 'pescatore.webp'},
+
+    {name: "パイナップルピザ", price: 850, kinds: "pizza", published: true, kids: true, 
+    recommend: false, explanation: "あなたは賛成派?反対派？", image_url: 'pinapoo.webp'},
+
+    {name: "ナゲット6ピース", price: 350, kinds: "side", published: true, kids: true, 
+    recommend: false, explanation: "追加の一品に。", image_url: 'nuggets.webp'},
+
+    {name: "ポテトフライ", price: 250, kinds: "side", published: true, kids: true, 
+    recommend: false, explanation: "追加の一品に。", image_url: 'potetofry.webp'},
+
+    {name: "コーラ", price: 120, kinds: "drink", published: true, kids: true, 
+    recommend: false, explanation: "ソフトドリンク", image_url: 'cola.webp'},
+
+    {name: "ジンジャーエール", price: 120, kinds: "drink", published: true, kids: true, 
+    recommend: false, explanation: "ソフトドリンク", image_url: 'genger.webp'},
+
+    {name: "白ワイン", price: 700, kinds: "drink", published: true, kids: true, 
+    recommend: false, explanation: "お酒", image_url: 'whitewain.webp'},
+
+    {name: "ジントニック", price: 500, kinds: "drink", published: true, kids: true, 
+    recommend: false, explanation: "お酒", image_url: 'jintonic.webp'},
+])
