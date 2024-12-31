@@ -6,7 +6,7 @@ fnames = ["鈴木太郎" ,"ジョン太郎","鈴木マイク","ソフィー","�
         fullname:fnames[idx],
         address:"神奈川県川崎市",
         birthed_on:"2000-12-25",
-        password_digest:"asagao!",
+        password:"asagao!",
         password_confirmation:"asagao!"
     )
 end

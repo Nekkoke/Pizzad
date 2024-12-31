@@ -1,11 +1,19 @@
 <%= image_tag "logo.png", size: "272x96", alt: "Pizzad" %>
 
+<% if current_customer %>
+  <ul class="account-menu">
+  <%= menu_link_to current_customer.name + "さん", "#" %>
+    <%= menu_link_to "ログアウト", :session,
+          method: :delete, data: { confirm: "ログアウトしますか？" } %>
+  </ul>
+<% end %>
+
 <nav class="menubar">
   <ul>
     <%= menu_link_to "TOP", :root %>
     <%= menu_link_to "商品", :products %>
     <%= menu_link_to "カート", :orders %>
-    <%= menu_link_to "マイページ", "#" %>
+    <%= menu_link_to "マイページ", :customers %>
     <%= menu_link_to "管理ページ", "#" %>
   </ul>
 </nav>

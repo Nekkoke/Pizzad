@@ -18,6 +18,9 @@ gem "sqlite3", "~> 1.4"
 # Use the Puma web server [https://github.com/puma/puma]
 gem "puma", "~> 5.0"
 
+# Use ActiveModel has_secure_password
+gem 'bcrypt','~> 3.1.7'
+
 # Use ActiveStorage variant
 gem 'image_processing', '~> 1.2'
 gem 'mini_magick', '~> 4.8'

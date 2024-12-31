@@ -149,6 +149,43 @@ aside#sidebar .ad img {
     color: #ff8;
     font-weight: bold;
   }
+
+
+  /* サブメニューバー */
+  nav.submenubar {
+    padding: 2px;
+    background-color: #333132;
+    color: #ccc;
+    font-size: 70%;
+    padding: 7px 14px;
+  }
+  
+  nav.submenubar ul li:not(:last-child):after {
+    color: #ccc;
+    content: " | ";
+    margin: 0 2px;
+  }
+  
+  /* メニューバーのリンク */
+  nav.submenubar a { text-decoration: none; }
+  
+  /* メニューバーのリンク（未訪問） */
+  nav.submenubar a:link { color: #58535E; }
+  
+  /* メニューバーのリンク（訪問済） */
+  nav.submenubar a:visited { color: #ccc; }
+  
+  /* メニューバーのリンク（マウスを合わせたとき） */
+  nav.submenubar a:hover {
+    color: #ff8;
+    text-decoration: underline;
+  }
+  
+  /* メニューバーのリンク（現在のページ） */
+  nav.submenubar span {
+    color: #ff8;
+    font-weight: bold;
+  }
   
   /* メインコンテンツ */
   main h1 {

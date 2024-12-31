@@ -1,7 +1,22 @@
-<% 5.times do |x| %>
-    <h2>見出し</h2>
-    <p>
-      ここに本文が入ります。ここに本文が入ります。ここに本文が入ります。ここに本文が入ります。
-      <%= link_to "もっと読む", "#" %>
-    </p>
-  <% end %>
+<h1>ログインフォーム</h1>
+<% if flash.alert %><p class="alert"><%= flash.alert %></p><% end %>
+<%= form_tag :session, id: "login-form" do %>
+  <div>
+    <label>ユーザー名：</label>
+    <input type="text" name="name">
+  </div>
+  <div>
+    <label>パスワード：</label>
+    <input type="password" name="password">
+  </div>
+  <div>
+  <br>
+    <input type="submit" value="ログイン">
+  </div>
+<% end %>
+
+<br>
+<div>
+<%= link_to "会員登録はこちら", "#" %>
+<br>
+</div>

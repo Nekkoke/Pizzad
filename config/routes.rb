@@ -14,6 +14,17 @@ Rails.application.routes.draw do
         delete :clear_cart #カートをクリア
         end
     end
+
+    #customerのルート
+    resources :customers 
+
+     #employeeのルート
+     namespace :employees do
+      root "top#index"
+     end
+
+     #session
+     resource :session, only: [:create, :destroy]
 end
 
 
