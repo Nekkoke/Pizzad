@@ -19,7 +19,7 @@ Rails.application.routes.draw do
     resources :customers 
 
      #employeeのルート
-     namespace :employees do
+     namespace :admin do
       root "top#index"
      end
 

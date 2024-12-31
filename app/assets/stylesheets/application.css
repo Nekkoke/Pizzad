@@ -156,8 +156,8 @@ aside#sidebar .ad img {
     padding: 2px;
     background-color: #333132;
     color: #ccc;
-    font-size: 70%;
-    padding: 7px 14px;
+    font-size: 80%;
+    padding: 8px 16px;
   }
   
   nav.submenubar ul li:not(:last-child):after {
