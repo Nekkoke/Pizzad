@@ -1,6 +1,13 @@
 class Product < ApplicationRecord
-    has_many_attached :images
+    has_one_attached :profile_picture #画像用
+    attribute :new_profile_picture
     has_many :order_items
+
+    before_save do
+      if new_profile_picture
+        self.profile_picture = new_profile_picture
+      end
+    end
 
     #検索メソッド
     class << self

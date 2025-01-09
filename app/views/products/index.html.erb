@@ -23,7 +23,9 @@
 <div class="pizza-list">
   <% @products.each do |product| %>
     <div class="pizza-item">
-      <%= link_to image_tag(product.image_url), product_path(product) %>
+    <% if product.profile_picture.attached? %>
+    <%= image_tag product.profile_picture.variant(resize:"288x288") %>
+    <% end %>
       <h2><%= product.name %></h2>
       <p><%= number_to_currency(product.price, unit: "¥", precision: 0) %></p>
       <p><%= product.explanation %></p>
