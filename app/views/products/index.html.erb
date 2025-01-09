@@ -3,14 +3,19 @@
 <%= form_tag :search_products, method: :get, class: "search" do %>
   <%= text_field_tag "q", params[:q] %>
   <%= submit_tag "検索" %>
-
+  <br>
+  <br>
   <%= radio_button_tag("商品検索", "pizza", checked = false) %>
     <%= "ピザ" %>
   <%= radio_button_tag("商品検索", "side",  checked = false) %>
     <%= "サイド" %>
   <%= radio_button_tag("商品検索", "drink", checked = false) %>
     <%= "ドリンク" %>
-    <%= radio_button_tag("商品検索", "指定なし", checked = true) %>
+  <%= radio_button_tag("商品検索", "kid", checked = false) %>
+    <%= "子供人気" %>
+  <%= radio_button_tag("商品検索", "recommend", checked = false) %>
+    <%= "店長おすすめ" %>
+  <%= radio_button_tag("商品検索", "指定なし", checked = true) %>
     <%= "解除" %>
 <% end %>
   <br>

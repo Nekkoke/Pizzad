@@ -1,0 +1,45 @@
+<%= render "shared/errors", obj: @customer %>
+<table class="attr">
+
+  <tr>
+    <th><%= form.label :name, "ユーザーネーム" %></th>
+    <td><%= form.text_field :name %></td>
+  </tr>
+  <tr>
+    <th><%= form.label :fullname, "フルネーム"  %></th>
+    <td><%= form.text_field :fullname %></td>
+  </tr>
+   <tr>
+  <th><%= form.label :mail, "住所" %></th>
+  <td><%= form.text_field :address %></td>
+   </tr>
+  <tr>
+    <th><%= form.label :mail, "メールアドレス" %></th>
+    <td><%= form.text_field :mail %></td>
+  </tr>
+  <tr>
+    <th><%= form.label :mail, "tel" %></th>
+    <td><%= form.text_field :tel %></td>
+  </tr>
+  <tr>
+    <th><%= form.label :birthed_on, "誕生日", for: "member_birthday_1i" %></th>
+    <td><%= form.date_select :birthed_on,
+              start_year: 1940, end_year: Time.current.year,
+              use_month_numbers: true %></td>
+  </tr>
+  <% if @customer.new_record? %>
+    <tr>
+      <th><%= form.label :password_digest, "パスワード" %></th>
+      <td><%= form.text_field :password_digest %></td>
+    </tr>
+  <% end %>
+  <% if controller.kind_of?(Admin::CustomersController) %>
+    <tr>
+      <th><%= Customer.human_attribute_name(:admin) %></th>
+      <td>
+        <%= form.check_box :admin %>
+        <%= form.label :admin %>
+      </td>
+    </tr>
+  <% end %>
+</table>

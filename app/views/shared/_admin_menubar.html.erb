@@ -1,11 +1,11 @@
 <nav class="submenubar">
   <ul>
   <%= menu_link_to "管理TOP", :admin_root %>
-  <%= menu_link_to "会員一覧", "#" %>
-  <%= menu_link_to "注文一覧", "#"  %>
-  <%= menu_link_to "在庫管理", "#"  %>
-  <%= menu_link_to "クーポン", "#"  %>
-  <%= menu_link_to "商品管理", "#"  %>
+  <%= menu_link_to "会員管理", :admin_customers %>
+  <%= menu_link_to "注文一覧", :admin_orders  %>
+  <%= menu_link_to "在庫管理", :admin_stocks  %>
+  <%= menu_link_to "クーポン", :admin_coupons  %>
+  <%= menu_link_to "商品管理", :admin_products  %>
   <%= menu_link_to "TOP", :root  %>
   </ul>
 </nav>

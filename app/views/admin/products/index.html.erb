@@ -1,0 +1,43 @@
+<% @page_title = "商品管理" %>
+<h1><%= @page_title %></h1>
+
+<%= form_tag :search_admin_products, method: :get, class: "search" do %>
+  <%= text_field_tag "q", params[:q] %>
+  <%= submit_tag "検索" %>
+    <% end %>
+<div class="toolbar"><%= link_to "商品の新規登録", :new_admin_product %></div>
+
+<% if @products.present? %>
+  <table class="list">
+    <thead>
+      <tr>
+        <th>名前</th>
+        <th>種類</th>
+        <th>値段</th>
+        <th>公開</th>
+        <th>子供</th>
+        <th>おすすめ</th>
+        <th>操作</th>
+      </tr>
+    </thead>
+    <tbody>
+      <% @products.each do |product| %>
+        <tr>
+          <td><%= product.name %></td>
+          <td><%= product.kinds %></td>
+          <td><%= product.price %></td>
+          <td><%= product.published %></td>
+          <td><%= product.kids %></td>
+          <td><%= product.recommend %></td>
+         <td>
+         <%= link_to "編集", [:edit, :admin, product] %> |
+         <%= link_to "削除", [:admin, product], method: :delete,
+         data: { confirm: "本当に削除しますか?"} %>
+      </td>
+      <% end %>
+    </tbody>
+  </table>
+  <%= paginate @products %>
+<% else %>
+  <p>商品がありません。</p>
+<% end %>

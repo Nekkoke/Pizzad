@@ -33,29 +33,9 @@ class ProductsController < ApplicationController
     @show_size = true
   end
 
-  def new
-
-  end
-
-  def create
-  
-  end
-
-  def edit
-
-  end
-
-  def update
-
-  end
-
-  def destroy
-
-  end
-
   def product_params
     params.require(:product).permit(:name, :price, images: [])
   end
+end
+end
 
-end
-end

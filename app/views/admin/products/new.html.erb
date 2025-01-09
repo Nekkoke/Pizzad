@@ -1,0 +1,8 @@
+<% @page_title = "商品の新規登録" %>
+
+<h1><%= @page_title %></h1>
+
+<%= form_for [:admin, @products] do |form| %>
+  <%= render "shared/product_form", form: form %>
+  <div><%= form.submit %></div>
+<% end %>

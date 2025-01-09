@@ -1,0 +1,47 @@
+<%= render "shared/errors", obj: @products %>
+<table class="attr">
+  <tr>
+    <th><%= form.label :name, "名前" %></th>
+    <td><%= form.text_field :name %></td>
+  </tr>
+  <tr>
+    <th><%= form.label :kinds, "種類" %></th>
+    <td><%= form.select :kinds, options_for_select(@kinds) %></td>
+  </tr>
+  <tr>
+    <th><%= form.label :price, "値段" %></th>
+    <td><%= form.text_field :price %></td>
+  </tr>
+  <tr>
+    <th><%= form.label :published, "公開" %></th>
+    <td>
+    <%= form.radio_button :published, true %>
+    <%= label_tag :published_true, "する" %>
+    <%= form.radio_button :published, false %>
+    <%= label_tag :published_false, "しない" %>
+    </td>
+  </tr>
+  <tr>
+   <th><%= form.label :kids, "子供向け" %></th>
+    <td>
+   <%= form.radio_button :kids, true %>
+   <%= label_tag :kids_true, "はい" %>
+   <%= form.radio_button :kids, false %>
+   <%= label_tag :kids_false, "いいえ" %>
+   </td>
+  </tr>
+  <tr>
+   <th><%= form.label :recommend, "おすすめ" %></th>
+    <td>
+   <%= form.radio_button :recommend, true %>
+   <%= label_tag :recommend_true, "はい" %>
+   <%= form.radio_button :recommend, false %>
+   <%= label_tag :recommend_false, "いいえ" %>
+   </td>
+  </tr>
+  <tr>
+    <th><%= form.label :explanation, "説明" %></th>
+    <td><%= form.text_area :explanation, rows: 5, cols: 50 %></td>
+  </tr>
+</table>
+

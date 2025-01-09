@@ -1,0 +1,37 @@
+<% @page_title = "在庫管理" %>
+<h1><%= @page_title %></h1>
+
+<%= form_tag :search_admin_stocks, method: :get, class: "search" do %>
+  <%= text_field_tag "q", params[:q] %>
+  <%= submit_tag "検索" %>
+    <% end %>
+<div class="toolbar"><%= link_to "材料の新規登録", :new_admin_stock %></div>
+
+<% if @stocks.present? %>
+  <table class="list">
+    <thead>
+      <tr>
+        <th>名前</th>
+        <th>数</th>
+        <th>種類</th>
+        <th>操作</th>
+      </tr>
+    </thead>
+    <tbody>
+      <% @stocks.each do |stock| %>
+        <tr>
+          <td><%= stock.name %></td>
+          <td><%= stock.number %></td>
+          <td><%= stock.assort %></td>
+         <td>
+         <%= link_to "編集", [:edit, :admin, stock] %> |
+         <%= link_to "削除", [:admin, stock], method: :delete,
+         data: { confirm: "本当に削除しますか?"} %>
+      </td>
+      <% end %>
+    </tbody>
+  </table>
+  <%= paginate @stocks %>
+<% else %>
+  <p>在庫がありません。</p>
+<% end %>

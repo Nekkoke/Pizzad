@@ -1,0 +1,41 @@
+<% @page_title = "注文管理" %>
+<h1><%= @page_title %></h1>
+
+<%= form_tag :search_admin_orders, method: :get, class: "search" do %>
+  <%= text_field_tag "q", params[:q] %>
+  <%= submit_tag "検索" %>
+    <% end %>
+
+<% if @orders.present? %>
+<br>
+  <table class="list">
+    <thead>
+      <tr>
+        <th>id</th>
+        <th>小計</th>
+        <th>店舗</th>
+        <th>状態</th>
+        <th>住所</th>
+        <th>操作</th>
+      </tr>
+    </thead>
+    <tbody>
+      <% @orders.each do |order| %>
+        <tr>
+          <td><%= order.id %></td>
+          <td><%= order.price %></td>
+          <td><%= order.store %></td>
+          <td><%= order.state %></td>
+          <td><%= order.address %></td>
+         <td>
+         <%= link_to "編集", [:edit, :admin, order] %> |
+         <%= link_to "削除", [:admin, order], method: :delete,
+         data: { confirm: "⚠️状態が「arrived」になっていることを確認してください⚠️　本当に削除しますか?"} %>
+      </td>
+      <% end %>
+    </tbody>
+  </table>
+  <%= paginate @orders %>
+<% else %>
+  <p>注文がありません。</p>
+<% end %>

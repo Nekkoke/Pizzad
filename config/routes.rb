@@ -20,7 +20,22 @@ Rails.application.routes.draw do
 
      #employeeのルート
      namespace :admin do
-      root "top#index"
+      root to: "top#index"
+      resources :customers do
+        get"search", on: :collection
+      end
+      resources :coupons do
+        get"search", on: :collection
+      end
+      resources :stocks do
+        get"search", on: :collection
+      end
+      resources :orders do
+        get"search", on: :collection
+      end
+      resources :products do
+        get"search", on: :collection
+      end
      end
 
      #session

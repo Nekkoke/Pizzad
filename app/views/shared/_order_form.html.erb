@@ -1,0 +1,8 @@
+<%= render "shared/errors", obj: @orders %>
+<table class="attr">
+  <tr>
+    <th><%= form.label :state, "状態" %></th>
+    <td><%= form.select :state, options_for_select(@states) %></td>
+  </tr>
+</table>
+
