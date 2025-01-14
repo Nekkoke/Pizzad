@@ -1,0 +1,22 @@
+<% @page_title = "マイアカウント" %>
+<h1><%= @page_title %></h1>
+
+<ul class="toolbar">
+  <%= menu_link_to "アカウント情報の編集", [:edit, :account] %>
+  <% unless current_employee %>
+  <%= menu_link_to "注文履歴", "#" %>
+  <% end %>
+  <%= menu_link_to "パスワードの変更", :edit_password %>
+
+  <% unless current_employee %>
+  <%= link_to "退会", outcustomer_path(current_customer), method: :delete,
+         data: { confirm: "本当に退会しますか?この操作は取り戻せません"} %>
+  <% end %>
+</ul>
+
+<% if current_customer %>
+<%= render "customers/body" %>
+<% end %>
+<% if current_employee %>
+<%= render "customers/body_admin" %>
+<% end %>

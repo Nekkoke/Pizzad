@@ -1,9 +1,25 @@
 <%= image_tag "logo.png", size: "272x96", alt: "Pizzad" %>
 
 <% if current_customer %>
+
   <ul class="account-menu">
-  <%= menu_link_to current_customer.name + "さん", "#" %>
+  <%= link_to current_customer.name + "様(一般会員)", :account %>
+  <%= "　" %>
     <%= menu_link_to "ログアウト", :session,
+          method: :delete, data: { confirm: "ログアウトしますか？" } %>
+  </ul>
+<% end %>
+
+<% if current_employee %>
+  <ul class="account-menu">
+  <% if current_employee && !current_employee.admin? %>
+  <%= link_to current_employee.name + "様(従業員)", :account %>
+  <% end %>
+  <% if current_employee&.admin? %>
+  <%= link_to current_employee.name + "様(管理者)", :account %>
+  <% end %>
+  <%= "　" %>
+    <%= menu_link_to "ログアウト", :secsession,
           method: :delete, data: { confirm: "ログアウトしますか？" } %>
   </ul>
 <% end %>

@@ -1,4 +1,5 @@
-<h1>ログインフォーム</h1>
+<% if current_customer.nil? && current_employee.nil? %>
+<h1>ログインフォーム[一般会員]</h1>
 <% if flash.alert %><p class="alert"><%= flash.alert %></p><% end %>
 <%= form_tag :session, id: "login-form" do %>
   <div>
@@ -14,9 +15,32 @@
     <input type="submit" value="ログイン">
   </div>
 <% end %>
+<br>
+
+<div>
+<%= link_to "会員登録はこちら", :new_account %>
+</div>
+<br>
+<br>
+<h2>ログインフォーム[従業員・管理者]</h2>
+<% if flash.alert %><p class="alert"><%= flash.alert %></p><% end %>
+<%= form_tag :secsession, id: "login-form" do %>
+  <div>
+    <label>ユーザー名：</label>
+    <input type="text" name="name">
+  </div>
+  <div>
+    <label>パスワード：</label>
+    <input type="password" name="password">
+  </div>
+  <div>
+  <br>
+    <input type="submit" value="ログイン">
+  </div>
+<% end %>
+<% end %>
+
 
 <br>
-<div>
-<%= link_to "会員登録はこちら", "#" %>
-<br>
-</div>
+
+    <%= image_tag "coupon.png", width: 700, height: 130 %>

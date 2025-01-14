@@ -3,11 +3,12 @@ class ProductsController < ApplicationController
   def index
     #商品一覧
     @products = Product.order("id")
+    @kinds = ['ピザ', 'サイド', 'ドリンク']
 
   end
 
   def search #検索
-    @products = Product.search(params[:q], params[:商品検索]) #qは検索ワード メンバーのidでもqになるね
+    @products = Product.search(params[:q], params[:商品検索], params[:ジャンル]) #qは検索ワード メンバーのidでもqになるね
     render "index"
   end
 

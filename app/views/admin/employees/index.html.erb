@@ -1,0 +1,29 @@
+<% @page_title = "従業員管理" %>
+<h1><%= @page_title %></h1>
+<div class="toolbar"><%= link_to "従業員の新規登録", :new_admin_employee %></div>
+
+<% if @employees.present? %>
+  <table class="list">
+    <thead>
+      <tr>
+        <th>ユーザー名</th>
+        <th>氏名</th>
+        <th>操作</th>
+      </tr>
+    </thead>
+    <tbody>
+      <% @employees.each do |member| %>
+        <tr>
+          <td><%= member.name %></td>
+          <td><%= member.fullname %></td>
+         <td>
+         <%= link_to "削除", [:admin, member], method: :delete,
+         data: { confirm: "本当に削除しますか?"} %>
+      </td>
+      <% end %>
+    </tbody>
+  </table>
+  <%= paginate @employees %>
+<% else %>
+  <p>従業員の情報がありません。</p>
+<% end %>

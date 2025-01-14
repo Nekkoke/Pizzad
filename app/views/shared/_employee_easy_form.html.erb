@@ -1,0 +1,16 @@
+<%= render "shared/errors", obj: @customer %>
+<table class="attr">
+
+<div class="toolbar"><%= link_to "マイアカウントに戻る", :account %></div>
+
+  <tr>
+    <th><%= form.label :name, "ユーザーネーム" %></th>
+    <td><%= form.text_field :name %></td>
+  </tr>
+  <tr>
+    <th><%= form.label :fullname, "フルネーム"  %></th>
+    <td><%= form.text_field :fullname %></td>
+  </tr>
+</table>
+
+

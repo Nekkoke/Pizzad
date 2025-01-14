@@ -5,26 +5,31 @@
   <%= submit_tag "検索" %>
   <br>
   <br>
-  <%= radio_button_tag("商品検索", "pizza", checked = false) %>
-    <%= "ピザ" %>
-  <%= radio_button_tag("商品検索", "side",  checked = false) %>
-    <%= "サイド" %>
-  <%= radio_button_tag("商品検索", "drink", checked = false) %>
-    <%= "ドリンク" %>
-  <%= radio_button_tag("商品検索", "kid", checked = false) %>
-    <%= "子供人気" %>
-  <%= radio_button_tag("商品検索", "recommend", checked = false) %>
-    <%= "店長おすすめ" %>
-  <%= radio_button_tag("商品検索", "指定なし", checked = true) %>
-    <%= "解除" %>
-<% end %>
+    <%= label_tag "商品検索", "カテゴリ：" %>
+    <%= select_tag "商品検索", options_for_select([
+      ["指定なし", "指定なし"],
+      ["ピザ", "pizza"],
+      ["サイド", "side"],
+      ["ドリンク", "drink"]
+    ], selected: "指定なし"), include_blank: false %>
+
+     <%= label_tag "ジャンル", "　ジャンル：" %>
+    <%= select_tag "ジャンル", options_for_select([
+      ["指定なし", "指定なし"],
+      ["子供にも人気", "kid"],
+      ["店長おすすめ", "recommend"]
+    ], selected: "指定なし"), include_blank: false %>
+    <% end %>
+    
   <br>
 
 <div class="pizza-list">
   <% @products.each do |product| %>
     <div class="pizza-item">
     <% if product.profile_picture.attached? %>
+    <%= link_to product_path(product) do %>
     <%= image_tag product.profile_picture.variant(resize:"288x288") %>
+    <% end %>
     <% end %>
       <h2><%= product.name %></h2>
       <p><%= number_to_currency(product.price, unit: "¥", precision: 0) %></p>
@@ -35,7 +40,7 @@
 
 <br>
     <h3>広告</h3>
-    <%= image_tag "advertise.png", class: "ad-image", alt: "広告画像" , width: 300, height: 300%>
+    <%= image_tag "advertise.png", class: "ad-image", alt: "広告画像"  , width: 300, height: 300%>
   </aside>
 </div>
 

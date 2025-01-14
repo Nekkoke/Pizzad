@@ -256,7 +256,7 @@ aside#sidebar .ad img {
     color: white;
     background-color: #E95B6B;
     border: none;
-    padding: 10px 15px;
+    padding: 6px 11px;
     border-radius: 5px;
     cursor: pointer;
   }
@@ -264,5 +264,21 @@ aside#sidebar .ad img {
   .btn-danger:hover {
     background-color: darkred;
   }
+
+  /* 注紋用 */
+  .btn-decide {
+    color: white;
+    background-color: #ED8F0D;
+    border: none;
+    padding: 10px 15px;
+    border-radius: 5px;
+    cursor: pointer;
+  }
+  
+  .btn-decide:hover {
+    background-color: #EDA848;
+  }
+
+  
   
   

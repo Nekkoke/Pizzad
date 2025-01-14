@@ -22,6 +22,7 @@ gem "puma", "~> 5.0"
 gem 'bcrypt','~> 3.1.7'
 gem 'kaminari'
 gem 'kaminari-i18n'
+gem 'email_validator','~> 1.6'
 
 
 # Use ActiveStorage variant

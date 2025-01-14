@@ -1,6 +1,8 @@
 <%= render "shared/errors", obj: @customer %>
 <table class="attr">
 
+<div class="toolbar"><%= link_to "マイアカウントに戻る", :account %></div>
+
   <tr>
     <th><%= form.label :name, "ユーザーネーム" %></th>
     <td><%= form.text_field :name %></td>
@@ -29,17 +31,14 @@
   </tr>
   <% if @customer.new_record? %>
     <tr>
-      <th><%= form.label :password_digest, "パスワード" %></th>
-      <td><%= form.text_field :password_digest %></td>
+      <th><%= form.label :password, "パスワード" %></th>
+      <td><%= form.text_field :password %></td>
     </tr>
-  <% end %>
-  <% if controller.kind_of?(Admin::CustomersController) %>
     <tr>
-      <th><%= Customer.human_attribute_name(:admin) %></th>
-      <td>
-        <%= form.check_box :admin %>
-        <%= form.label :admin %>
-      </td>
+      <th><%= form.label :password_confirmation, "パスワード(確認用)" %></th>
+      <td><%= form.text_field :password_confirmation %></td>
     </tr>
   <% end %>
 </table>
+
+

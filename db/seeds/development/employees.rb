@@ -6,6 +6,7 @@ gnames = ["太郎", "次郎", "花子"]
     admin: (idx == 0), # 最初のユーザーのみ管理者
     name: names[idx],
     fullname: "#{fnames[idx % fnames.size]} #{gnames[idx % gnames.size]}",
-    password_digest: "pizzad"
+    password: "pizzad",
+    password_confirmation: "pizzad"
   )
 end

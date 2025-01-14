@@ -1,14 +1,11 @@
 class OrdersController < ApplicationController
-  def index
-    #@orders = Order.order("id")
-  end
-
   def add
     # カートが未定義なら0をデフォルト値とするHashで初期化（キーは商品ID、値は数量）
     session[:cart] ||= []
 
     # 新しい商品データ
     item = {
+      order_id: session[:order_id], #注文情報に
       item_id: params[:item_id],
       name: params[:name], #商品名
       size: params[:size],
@@ -44,13 +41,20 @@ class OrdersController < ApplicationController
     @items = @cart.map do |cart_item| # カートの各アイテムに対して処理
       product = Product.find(cart_item["item_id"]) # 商品IDを使って商品情報を取得
       cart_item.merge(product: product) # 商品データをカートアイテムにマージ
+
+      @order_id = session[:order_id] # 現在の注文ID
     end
+  end
+
+  def edit
+    @order = current_customer
+    #@order_id = session[:order_id] # 現在の注文ID
   end
 
   
    #クリア
    def clear_cart
     session[:cart] = []
-    redirect_to orders_path, notice: "カートをクリアしました。"
+    redirect_to order_path, notice: "カートをクリアしました。"
   end
 end

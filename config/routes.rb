@@ -15,13 +15,22 @@ Rails.application.routes.draw do
         end
     end
 
+    #退会用
+    resources :outcustomers, only: [:destroy]
+
+    #account
+    resource :account, except: [:destroy] 
+
+    #password
+    resource :password, only:[:show, :edit, :update]
+
     #customerのルート
     resources :customers 
 
      #employeeのルート
      namespace :admin do
       root to: "top#index"
-      resources :customers do
+      resources :employees, except: [:edit, :update] do
         get"search", on: :collection
       end
       resources :coupons do
@@ -40,6 +49,8 @@ Rails.application.routes.draw do
 
      #session
      resource :session, only: [:create, :destroy]
+     #session（従業員用）
+     resource :secsession, only: [:create, :destroy]
 end
 
 

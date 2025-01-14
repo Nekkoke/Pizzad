@@ -1,0 +1,44 @@
+<%= render "shared/errors", obj: @customer %>
+<table class="attr">
+
+<div class="toolbar"><%= link_to "topに戻る", :root %></div>
+
+  <tr>
+    <th><%= form.label :name, "ユーザーネーム" %></th>
+    <td><%= form.text_field :name %></td>
+  </tr>
+  <tr>
+    <th><%= form.label :fullname, "フルネーム"  %></th>
+    <td><%= form.text_field :fullname %></td>
+  </tr>
+   <tr>
+  <th><%= form.label :mail, "住所" %></th>
+  <td><%= form.text_field :address %></td>
+   </tr>
+  <tr>
+    <th><%= form.label :mail, "メールアドレス" %></th>
+    <td><%= form.text_field :mail %></td>
+  </tr>
+  <tr>
+    <th><%= form.label :mail, "tel" %></th>
+    <td><%= form.text_field :tel %></td>
+  </tr>
+  <tr>
+    <th><%= form.label :birthed_on, "誕生日", for: "member_birthday_1i" %></th>
+    <td><%= form.date_select :birthed_on,
+              start_year: 1940, end_year: Time.current.year,
+              use_month_numbers: true %></td>
+  </tr>
+  <% if @customer.new_record? %>
+    <tr>
+      <th><%= form.label :password, "パスワード" %></th>
+      <td><%= form.text_field :password %></td>
+    </tr>
+    <tr>
+      <th><%= form.label :password_confirmation, "パスワード(確認用)" %></th>
+      <td><%= form.text_field :password_confirmation %></td>
+    </tr>
+  <% end %>
+</table>
+
+

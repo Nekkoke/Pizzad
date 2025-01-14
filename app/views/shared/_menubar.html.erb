@@ -3,9 +3,8 @@
     <%= menu_link_to "TOP", :root %>
     <%= menu_link_to "商品", :products %>
     <%= menu_link_to "カート", :orders %>
-    <%= menu_link_to "マイページ", :customers %>
 
-    <% if current_customer&.admin? %>
+    <% if current_employee %>
     <%= menu_link_to "管理ページ", :admin_root %>
     <% end %>
   </ul>

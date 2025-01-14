@@ -63,12 +63,16 @@
   </table>
 
   <p><strong>合計金額:</strong> <%= number_to_currency(total_price, unit: "¥", precision: 0) %></p>
-  <br>
 
   <%= button_to "カートをクリア", clear_cart_orders_path, 
     method: :delete, 
     data: { confirm: "本当にカートをクリアしますか？" }, 
     class: "btn btn-danger" %>
+
+  <br>
+  <br>
+  <%= button_to "注文へ(開発中)", "#", 
+    class: "btn btn-decide" %>
 
 <% else %>
   <p>まだ商品がありません。[商品]タブから追加しましょう</p>

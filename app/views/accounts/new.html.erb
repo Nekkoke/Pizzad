@@ -1,0 +1,9 @@
+<% @page_title = "会員の新規登録" %>
+
+<h1><%= @page_title %></h1>
+
+<%= form_for @customer, as: "account", url: :account  do |form| %>
+  <%= render "shared/membernew_form", form: form %>
+  <div><%= form.submit %></div>
+<% end %>
+

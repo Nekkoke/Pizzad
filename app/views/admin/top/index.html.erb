@@ -1,8 +1,13 @@
 <% @page_title = "管理ページTOP" %>
 
   <ul>
-    <li><%= link_to "会員一覧", "#" %></li>
-    <li><%= link_to "注文一覧", "#" %></li>
-    <li><%= link_to "クーポン", "#" %></li>
-    <li><%= link_to "商品管理", "#" %></li>
+  <% if current_employee&.admin? %>
+  <li><%= link_to "従業員管理", :admin_employees %></li>
+  <% end %>
+  <li><%= link_to "注文一覧", :admin_orders  %></li>
+  <li><%= link_to "在庫管理", :admin_stocks  %></li>
+  <% if current_employee&.admin? %>
+  <li><%= link_to "クーポン", :admin_coupons  %></li>
+  <% end %>
+  <li><%= link_to "商品管理", :admin_products  %></li>
   </ul>

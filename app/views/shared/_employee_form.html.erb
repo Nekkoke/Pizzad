@@ -1,0 +1,32 @@
+<%= render "shared/errors", obj: @employees %>
+<table class="attr">
+  <tr>
+    <th><%= form.label :name, "ユーザーネーム" %></th>
+    <td><%= form.text_field :name %></td>
+  </tr>
+  <tr>
+    <th><%= form.label :fullname, "フルネーム"  %></th>
+    <td><%= form.text_field :fullname %></td>
+  </tr>
+  <% if @employees.new_record? %>
+    <tr>
+      <th><%= form.label :password, "パスワード" %></th>
+      <td><%= form.text_field :password %></td>
+    </tr>
+    <tr>
+      <th><%= form.label :password_confirmation, "パスワード再確認" %></th>
+      <td><%= form.text_field :password_confirmation %></td>
+    </tr>
+  <% end %>
+  <% if controller.kind_of?(Admin::EmployeesController) %>
+    <tr>
+      <th><%= Employee.human_attribute_name(:admin) %></th>
+      <td>
+        <%= form.check_box :admin %>
+        <%= form.label :管理者 %>
+      </td>
+    </tr>
+  <% end %>
+</table>
+
+
