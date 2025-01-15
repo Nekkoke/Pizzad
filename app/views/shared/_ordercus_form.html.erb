@@ -1,0 +1,93 @@
+<%= render "shared/errors", obj: @order %>
+<table class="attr">
+
+<div class="toolbar"><%= link_to "注文ページに戻る", :orders %></div>
+
+    <tr>
+      <th><%= form.label :address, "配達先住所" %></th>
+      <td><%= form.text_field :address, value: @order.address || current_customer.address %></td> 
+    </tr>
+    <tr>
+      <th><%= form.label :store, "店舗" %></th>
+      <td>
+       <%= form.radio_button :store, '向ヶ丘遊園店', checked: @order.store == '向ヶ丘遊園店' %>
+       <%= label_tag :store_a, "向ヶ丘遊園店" %>
+       <%= form.radio_button :store, '宿河原店', checked: @order.store == '宿河原店' %>
+       <%= label_tag :store_b, "宿河原店" %>
+  </td>
+  </table>
+
+  <h1><%= "注文内容のご確認" %></h1>
+  <% if session[:cart].present? %>
+  <table class="list">
+    <thead>
+      <tr>
+        <th>商品ID</th>
+        <th>商品名</th>
+        <th>価格</th>
+        <th>サイズ</th>
+        <th>オプション</th>
+        <th>数量</th>
+        <th>小計</th>
+      </tr>
+    </thead>
+    <tbody>
+      <% total_price = 0 %> <!-- 合計金額を初期化 -->
+      <% session[:cart].each do |item| %>
+        <% adjusted_price = item["price"].to_i %> <!-- 基本価格を設定 -->
+
+        <% case item["toppings"] %>
+                <% when "なし" %>
+
+                <% when "チーズ増量(¥100)" %>
+                  <% adjusted_price += 100 %> 
+                <% when "トマト(¥80)" %>
+                  <% adjusted_price += 80 %> 
+                <% when "チキン追加(¥150)" %>
+                  <% adjusted_price += 150 %> 
+                <% when "チキン追加(¥150)" %>
+                  <% adjusted_price += 150 %>
+              <% end %>
+        <tr>
+          <td><%= item["item_id"] %></td>
+          <td><%= item["name"] %></td>
+          <td><%= item["price"] || "価格なし" %></td>
+          <td><%= item["size"] %></td>
+          <td><%= item["toppings"] %></td>
+          <td><%= item["quantity"] || "nil (数量未設定)" %></td>
+          <td>
+            <% if item["price"] && item["quantity"] %>
+              
+              <!-- サイズに応じた価格調整 -->
+              <% case item["size"] %>
+                <% when "S (-¥40)" %>
+                  <% adjusted_price -= 40 %> <!-- 小サイズは40円引き -->
+                <% when "M" %>
+                  <% # サイズMは価格変更なし %>
+                <% when "L (+¥80)" %>
+                  <% adjusted_price += 80 %> <!-- 大サイズは80円増加 -->
+              <% end %>
+
+              <% subtotal = adjusted_price * item["quantity"].to_i %> <!-- 小計を計算 -->
+              <% total_price += subtotal %> <!-- 合計に加算 -->
+              <%= number_to_currency(subtotal, unit: "¥", precision: 0) %>
+            <% else %>
+              計算不可
+            <% end %>
+          </td>
+        </tr>
+      <% end %>
+    </tbody>
+  </table>
+
+  <p><strong>合計金額:</strong> <%= number_to_currency(total_price, unit: "¥", precision: 0) %></p>
+
+    <!-- 合計金額を隠しフィールドとして追加 -->
+  <%= form.hidden_field :price, value: total_price %>
+
+<% else %>
+  <p>どうやって来たんですか...？</p>
+<% end %>
+
+
+

@@ -1,4 +1,14 @@
 class Coupon < ApplicationRecord
+
+  validates :name, presence: true,
+      length: { maximum: 20, allow_blank: true }
+  validates :discount, presence: true, 
+    numericality: { 
+        only_integer: true, 
+        greater_than: 0, 
+        less_than_or_equal_to: 100 
+      }
+
     class << self
         def search(query)
           rel = order("id")

@@ -30,9 +30,6 @@ class OrdersController < ApplicationController
         session[:cart] << item
       end
 
-    # カートの商品IDに対する数量を追加(元々のコード)
-    #session[:cart][params[:item_id]] += params[:quantity]
-
     redirect_to products_path, notice: "商品をカートに追加しました。"
   end
 
@@ -41,20 +38,36 @@ class OrdersController < ApplicationController
     @items = @cart.map do |cart_item| # カートの各アイテムに対して処理
       product = Product.find(cart_item["item_id"]) # 商品IDを使って商品情報を取得
       cart_item.merge(product: product) # 商品データをカートアイテムにマージ
-
-      @order_id = session[:order_id] # 現在の注文ID
     end
   end
 
-  def edit
-    @order = current_customer
-    #@order_id = session[:order_id] # 現在の注文ID
+  def new
+    @customer = current_customer
+    @order = Order.new(address: @customer.address)  # 顧客の住所を初期値として設定
   end
 
+  # 注文情報追加
+  def create
+    @order = Order.new(order_params)
+    @order.customer = current_customer 
+    @order.price = params[:order][:price] # 合計金額を設定
+    @order.state = 'prepare' # 状態を'prepare'に設定
+    @order.store = params[:order][:store]
+  if @order.save
+    render "orders/orderfin", notice: "注文が完了しました。"
   
+   else
+    render "new"
+   end
+  end
+
    #クリア
    def clear_cart
     session[:cart] = []
-    redirect_to order_path, notice: "カートをクリアしました。"
+    redirect_to orders_url, notice: "カートをクリアしました。"
+  end
+
+  def order_params
+    params.require(:order).permit(:store, :address)  # storeとaddressを許可
   end
 end

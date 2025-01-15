@@ -1,5 +1,5 @@
 class AccountsController < ApplicationController
-before_action :login_required_double
+before_action :login_required_double, except: [:new, :create]
 
 def new
   @customer = Customer.new(birthed_on: Date.new(2000, 1, 1))

@@ -71,8 +71,13 @@
 
   <br>
   <br>
-  <%= button_to "注文へ(開発中)", "#", 
+  <% if current_customer %>
+  <%= link_to "注文へ", new_order_path(current_customer), 
     class: "btn btn-decide" %>
+  <% end %>
+  <% if current_employee %>
+  <p>注文は一般会員である必要があります</p>
+  <% end %>
 
 <% else %>
   <p>まだ商品がありません。[商品]タブから追加しましょう</p>

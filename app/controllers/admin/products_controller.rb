@@ -21,6 +21,7 @@ class Admin::ProductsController < Admin::Base
   # 会員の新規登録
   def create
     @products = Product.new(params[:product])
+    @kinds = ['pizza', 'side', 'drink']
     if @products.save
       redirect_to admin_products_path, notice: "商品を登録しました。"
     else
@@ -37,6 +38,7 @@ class Admin::ProductsController < Admin::Base
    # 会員情報の更新
    def update
     @products = Product.find(params[:id])
+    @kinds = ['pizza', 'side', 'drink']
     @products.assign_attributes(params[:product])
    if @products.save
     redirect_to admin_products_path, notice: "商品情報を更新しました。"

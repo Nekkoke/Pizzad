@@ -3,6 +3,30 @@ class Product < ApplicationRecord
     attribute :new_profile_picture
     has_many :order_items
 
+    validates :name, presence: true,
+    length: { maximum: 20, allow_blank: true },
+    uniqueness: { case_sensitive: false }
+    validates :price, presence: true, numericality: 
+    { 
+     only_integer: true,
+     greater_than: 0,
+     less_than_or_equal_to: 9999  
+    }
+    validates :published, presence: true
+    validates :kids, presence: true
+    validates :recommend, presence: true
+    validates :explanation, presence: true, length: { maximum: 200, allow_blank: true }
+
+    validate if: :new_profile_picture do
+      if new_profile_picture.respond_to?(:content_type)
+        unless new_profile_picture.content_type.in?(ALLOWED_CONTENT_TYPES)
+          errors.add(:new_profile_picture, :invalid_image_type)
+        end
+      else
+        errors.add(:new_profile_picture, :invalid)
+      end
+    end
+
     before_save do
       if new_profile_picture
         self.profile_picture = new_profile_picture

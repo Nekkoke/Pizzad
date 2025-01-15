@@ -2,7 +2,7 @@ class ProductsController < ApplicationController
 
   def index
     #商品一覧
-    @products = Product.order("id")
+    @products = Product.order("id").where(published: true)
     @kinds = ['ピザ', 'サイド', 'ドリンク']
 
   end

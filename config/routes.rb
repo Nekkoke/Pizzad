@@ -8,7 +8,7 @@ Rails.application.routes.draw do
     end
 
     #orderのルート
-    resources :orders do
+    resources :orders, only: [:index, :show, :new, :create] do
       post :add, on: :collection #カートのadd
         collection do
         delete :clear_cart #カートをクリア

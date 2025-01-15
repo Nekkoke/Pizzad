@@ -2,7 +2,7 @@
 
 <h1><%= @page_title %></h1>
 
-<%= form_for [:admin, @orders] do |form| %>
-  <%= render "shared/coupon_form", form: form %>
+<%= form_for @order do |form| %>
+  <%= render "shared/ordercus_form", form: form %>
   <div><%= form.submit %></div>
 <% end %>
