@@ -49,10 +49,12 @@ ActiveRecord::Schema[7.0].define(version: 2024_12_26_101039) do
   end
 
   create_table "coupons", force: :cascade do |t|
+    t.integer "customer_id", null: false
     t.string "name", null: false
     t.integer "discount", null: false
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.index ["customer_id"], name: "index_coupons_on_customer_id"
   end
 
   create_table "customers", force: :cascade do |t|
@@ -62,7 +64,6 @@ ActiveRecord::Schema[7.0].define(version: 2024_12_26_101039) do
     t.string "mail"
     t.date "birthed_on"
     t.string "tel"
-    t.boolean "admin"
     t.string "password_digest", null: false
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
@@ -149,12 +150,11 @@ ActiveRecord::Schema[7.0].define(version: 2024_12_26_101039) do
   end
 
   create_table "toppings", force: :cascade do |t|
+    t.integer "product_id", null: false
     t.integer "stock_id", null: false
-    t.string "name", null: false
-    t.integer "price", null: false
-    t.integer "number", null: false
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.index ["product_id"], name: "index_toppings_on_product_id"
     t.index ["stock_id"], name: "index_toppings_on_stock_id"
   end
 

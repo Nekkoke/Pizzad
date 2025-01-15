@@ -1,4 +1,5 @@
 class Coupon < ApplicationRecord
+  belongs_to :customer
 
   validates :name, presence: true,
       length: { maximum: 20, allow_blank: true }

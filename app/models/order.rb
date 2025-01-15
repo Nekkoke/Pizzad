@@ -1,5 +1,5 @@
 class Order < ApplicationRecord
-      belongs_to :customer
+    belongs_to :customer
 
     validates :address, presence: true, length: { maximum: 20 } #住所
     validates :store, presence: true

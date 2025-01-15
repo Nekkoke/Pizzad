@@ -5,7 +5,15 @@
   <%= submit_tag "検索" %>
   <br>
   <br>
-    <%= label_tag "商品検索", "商品タイプ：" %>
+  <%= label_tag "カテゴリ", "カテゴリ" %>
+  <%= select_tag "カテゴリ", options_for_select([
+    ["指定なし", "指定なし"],
+    ["野菜", "vegetable"],
+    ["お肉", "meat"],
+    ["お魚", "seafood"]
+  ], selected: "指定なし"), include_blank: false %>
+
+    <%= label_tag "商品検索", "　商品タイプ" %>
     <%= select_tag "商品検索", options_for_select([
       ["指定なし", "指定なし"],
       ["ピザ", "pizza"],
@@ -13,7 +21,7 @@
       ["ドリンク", "drink"]
     ], selected: "指定なし"), include_blank: false %>
 
-     <%= label_tag "ジャンル", "　ジャンル：" %>
+     <%= label_tag "ジャンル", "　ジャンル" %>
     <%= select_tag "ジャンル", options_for_select([
       ["指定なし", "指定なし"],
       ["子供にも人気", "kid"],

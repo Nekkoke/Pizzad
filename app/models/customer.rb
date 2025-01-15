@@ -1,6 +1,9 @@
 class Customer < ApplicationRecord
     has_secure_password
     has_many :orders, dependent: :destroy
+    has_many :coupons, dependent: :destroy
+    
+
 
     #バリデーション
     validates :name, presence: true,
@@ -38,6 +41,4 @@ class Customer < ApplicationRecord
           rel
         end
       end
-
-      
 end

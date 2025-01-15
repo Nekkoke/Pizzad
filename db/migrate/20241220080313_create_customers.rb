@@ -7,7 +7,6 @@ class CreateCustomers < ActiveRecord::Migration[7.0]
       t.string :mail#メール
       t.date :birthed_on#誕生日
       t.string :tel#電話番号
-      t.boolean :admin
       t.string :password_digest,null:false#パスワード
       t.timestamps
     end

@@ -1,10 +1,13 @@
 class Stock < ApplicationRecord
+  has_many :toppings, dependent: :destroy
+  has_many :products, through: :toppings
+
 
   validates :name, presence: true,
                    length: { maximum: 20, allow_blank: true },
                    uniqueness: { case_sensitive: false }
   validates :number, presence: true, numericality: { only_integer: true, greater_than: 0 }
-  validates :assort, presence: true, inclusion: { in: ['vegerable', 'meat', 'seafood', 'others'] }
+  validates :assort, presence: true, inclusion: { in: ['vegetable', 'meat', 'seafood', 'others'] }
 
     class << self
         def search(query)

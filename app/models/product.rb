@@ -1,7 +1,8 @@
 class Product < ApplicationRecord
-    has_one_attached :profile_picture #画像用
+    has_one_attached :profile_picture #画像用x
     attribute :new_profile_picture
-    has_many :order_items
+    has_many :toppings, dependent: :destroy
+    has_many :stocks, through: :toppings
 
     validates :name, presence: true,
     length: { maximum: 20, allow_blank: true },
@@ -13,8 +14,6 @@ class Product < ApplicationRecord
      less_than_or_equal_to: 9999  
     }
     validates :published, presence: true
-    validates :kids, presence: true
-    validates :recommend, presence: true
     validates :explanation, presence: true, length: { maximum: 200, allow_blank: true }
 
     validate if: :new_profile_picture do
@@ -35,13 +34,19 @@ class Product < ApplicationRecord
 
     #検索メソッド
     class << self
-        def search(query, prod, genre)
+        def search(query, type, prod, genre)
           rel = order("id")
           
       # 名前で絞り込み
-      rel = rel.where("name LIKE ?", "%#{query}%", "%#{query}%") if query.present?
+      rel = rel.where("name LIKE ?", "%#{query}%", "%#{query}%", "%#{query}%") if query.present?
 
       # kinds、kid、rec で絞り込み
+      case type
+      when "vegetable", "meat", "seafood"
+        rel = rel.where(kinds: prod)
+      when "指定なし"
+        
+      end
       case prod
       when "pizza", "side", "drink"
         rel = rel.where(kinds: prod)

@@ -1,5 +1,5 @@
 #商品一覧
-Product.create([
+Product.create!([
     {name: "フォルマッジョ", price: 990, kinds: "pizza", published: true, kids: false, 
     recommend: true, explanation: "4種のチーズが濃厚なピザ。", image_url: 'formaggi.webp'},
 
@@ -28,5 +28,5 @@ Product.create([
     recommend: false, explanation: "お酒", image_url: 'whitewain.webp'},
 
     {name: "ジントニック", price: 500, kinds: "drink", published: true, kids: true, 
-    recommend: false, explanation: "お酒", image_url: 'jintonic.webp'},
+    recommend: false, explanation: "お酒", image_url: 'jintonic.webp'}
 ])
