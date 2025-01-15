@@ -2,9 +2,15 @@
 <h1><%= @page_title %></h1>
 
 <%= form_tag :search_admin_orders, method: :get, class: "search" do %>
-  <%= text_field_tag "q", params[:q] %>
-  <%= submit_tag "検索" %>
+    <%= label_tag "q", "状態" %>
+    <%= select_tag "q", options_for_select([
+      ["指定なし", "指定なし"],
+      ["prepare", "prepare"],
+      ["arrived", "arrived"]
+    ], selected: "指定なし"), include_blank: false %>
+      <%= submit_tag "検索" %>
     <% end %>
+    <br>
 
 <% if @orders.present? %>
 <br>
@@ -28,9 +34,12 @@
           <td><%= order.state %></td>
           <td><%= order.address %></td>
          <td>
+         <% if order.state == "prepare" %>
          <%= link_to "編集", [:edit, :admin, order] %> |
+         <% end %>
          <%= link_to "削除", [:admin, order], method: :delete,
-         data: { confirm: "⚠️状態が「arrived」になっていることを確認してください⚠️　本当に削除しますか?"} %>
+         data: { confirm: "本当に削除しますか?"} %>
+       
       </td>
       <% end %>
     </tbody>

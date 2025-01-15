@@ -1,0 +1,38 @@
+<%= render "shared/errors", obj:  Order.new%>
+
+<div class="toolbar"><%= link_to "マイアカウントに戻る", :account %></div>
+
+  <h1><%= "注文内容" %></h1>
+
+  <% if @orders.present? %>
+  <table class="list">
+    <thead>
+      <tr>
+        <th>小計</th>
+        <th>店舗</th>
+        <th>住所</th>
+        <th>状況</th>
+        <th>操作</th>
+      </tr>
+    </thead>
+    <tbody>
+      <% @orders.each do |order| %>
+        <tr>
+          <td><%= order.price %></td>
+          <td><%= order.store %></td>
+          <td><%= order.address %></td>
+          <td><%= order.state %></td>
+         <td>
+         <% if order.state == "prepare" %>
+         <%= link_to "取消", order, method: :delete,
+         data: { confirm: "本当に削除しますか?"} %>
+         <% else %>
+         <span class="disabled">　-</span>
+         <% end %>
+      </td>
+      <% end %>
+    </tbody>
+  </table>
+<% else %>
+  <p>注文履歴がありません。</p>
+<% end %>

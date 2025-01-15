@@ -8,7 +8,7 @@ Rails.application.routes.draw do
     end
 
     #orderのルート
-    resources :orders, only: [:index, :show, :new, :create] do
+    resources :orders, only: [:index, :show, :new, :create, :destroy] do
       post :add, on: :collection #カートのadd
         collection do
         delete :clear_cart #カートをクリア
@@ -19,7 +19,9 @@ Rails.application.routes.draw do
     resources :outcustomers, only: [:destroy]
 
     #account
-    resource :account, except: [:destroy] 
+    resource :account, except: [:index, :destroy] do
+      get :orderhis, on: :collection
+    end
 
     #password
     resource :password, only:[:show, :edit, :update]
@@ -52,5 +54,6 @@ Rails.application.routes.draw do
      #session（従業員用）
      resource :secsession, only: [:create, :destroy]
 end
+
 
 

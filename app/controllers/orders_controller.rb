@@ -67,6 +67,12 @@ class OrdersController < ApplicationController
     redirect_to orders_url, notice: "カートをクリアしました。"
   end
 
+  def destroy
+    @orders = Order.find(params[:id])
+    @orders.destroy
+  redirect_to [:orderhis, :account], notice: "注文情報を削除しました。"
+  end
+
   def order_params
     params.require(:order).permit(:store, :address)  # storeとaddressを許可
   end

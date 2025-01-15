@@ -40,6 +40,17 @@
    </td>
   </tr>
   <tr>
+  <th><%= form.label :stocks, "材料" %></th>
+  <td>
+    <%= form.collection_check_boxes(:stock_ids, @stocks, :id, :name) do |cb| %>
+      <div>
+        <%= cb.check_box %>
+        <%= cb.label %>
+      </div>
+    <% end %>
+  </td>
+</tr>
+  <tr>
     <th><%= form.label :explanation, "説明" %></th>
     <td><%= form.text_area :explanation, rows: 5, cols: 50 %></td>
   </tr>

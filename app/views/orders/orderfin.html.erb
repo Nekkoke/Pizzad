@@ -1,7 +1,8 @@
 <%= render "shared/errors", obj: @order %>
 
+<div class="toolbar"><%= link_to "注文ページに戻る", :orders %></div>
+
 <h3>注文が完了しました。ご利用ありがとうございます!</h3>
-<div class="toolbar"><%= link_to "商品に戻る", :products %></div>
 
   <h1><%= "注文内容" %></h1>
   <% if session[:cart].present? %>

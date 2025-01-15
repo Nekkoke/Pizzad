@@ -1,6 +1,14 @@
 class AccountsController < ApplicationController
 before_action :login_required_double, except: [:new, :create]
 
+def show
+  if current_customer
+    @customer = current_customer
+  else
+    @customer = current_employee
+  end
+end
+
 def new
   @customer = Customer.new(birthed_on: Date.new(2000, 1, 1))
 end
@@ -13,14 +21,6 @@ def create
   
    else
     render "new"
-  end
-end
-
-  def show
-  if current_customer
-    @customer = current_customer
-  else
-    @customer = current_employee
   end
 end
 
@@ -51,5 +51,9 @@ end
       render "index"
      end
     end
+  end
+
+  def orderhis
+    @orders = current_customer.orders
   end
 end

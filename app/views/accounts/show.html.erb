@@ -4,7 +4,7 @@
 <ul class="toolbar">
   <%= menu_link_to "アカウント情報の編集", [:edit, :account] %>
   <% unless current_employee %>
-  <%= menu_link_to "注文履歴", "#" %>
+  <%= menu_link_to "注文履歴",  [:orderhis, :account] %>
   <% end %>
   <%= menu_link_to "パスワードの変更", :edit_password %>
 

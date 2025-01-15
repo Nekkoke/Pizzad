@@ -3,6 +3,7 @@ class Admin::OrdersController < Admin::Base
   def index
     @orders = Order.order("id")
       .page(params[:page]).per(15)
+
   end
 
   # 検索

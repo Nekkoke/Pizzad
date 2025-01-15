@@ -31,8 +31,12 @@
           <td><%= product.recommend %></td>
          <td>
          <%= link_to "編集", [:edit, :admin, product] %> |
+          <% if product.stocks.empty? %>  <!-- 関連付けのif文はこう書く -->
          <%= link_to "削除", [:admin, product], method: :delete,
          data: { confirm: "本当に削除しますか?"} %>
+          <% else %>    
+         <span class="disabled">∞link</span>
+          <% end %>
       </td>
       <% end %>
     </tbody>
@@ -41,3 +45,5 @@
 <% else %>
   <p>商品がありません。</p>
 <% end %>
+
+<p> [💡tips]材料を削除する場合は編集で「材料」のチェックを外す </p>

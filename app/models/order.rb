@@ -5,15 +5,15 @@ class Order < ApplicationRecord
     validates :store, presence: true
 
     class << self
-        def search(query)
-          rel = order("id")
-          if query.present?
-            rel = rel.where("name LIKE ?",
-              "%#{query}%")
-          end
-          rel
+      def search(query)
+        rel = order("id")
+        if query.present? && query != "指定なし"
+          rel = rel.where(state: query)  # 状態で絞り込み
         end
+        rel
       end
+    end
+  
 
     class << self
     def status_text(status)

@@ -14,14 +14,16 @@ class Admin::ProductsController < Admin::Base
   end
 
   def new
-    @products = Product.new(price: 1000)
+    @products = Product.new(price: 1000, kids: false, recommend: false, published: true)
     @kinds = ['pizza', 'side', 'drink']
+    @stocks = Stock.all
   end
 
   # 会員の新規登録
   def create
     @products = Product.new(params[:product])
     @kinds = ['pizza', 'side', 'drink']
+    @stocks = Stock.all
     if @products.save
       redirect_to admin_products_path, notice: "商品を登録しました。"
     else
@@ -32,6 +34,7 @@ class Admin::ProductsController < Admin::Base
   def edit
     @products = Product.find(params[:id])
     @kinds = ['pizza', 'side', 'drink']
+    @stocks = Stock.all
   end
 
 
@@ -39,6 +42,7 @@ class Admin::ProductsController < Admin::Base
    def update
     @products = Product.find(params[:id])
     @kinds = ['pizza', 'side', 'drink']
+    @stocks = Stock.all
     @products.assign_attributes(params[:product])
    if @products.save
     redirect_to admin_products_path, notice: "商品情報を更新しました。"

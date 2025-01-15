@@ -13,7 +13,6 @@ class Product < ApplicationRecord
      greater_than: 0,
      less_than_or_equal_to: 9999  
     }
-    validates :published, presence: true
     validates :explanation, presence: true, length: { maximum: 200, allow_blank: true }
 
     validate if: :new_profile_picture do
@@ -41,17 +40,14 @@ class Product < ApplicationRecord
       rel = rel.where("name LIKE ?", "%#{query}%", "%#{query}%", "%#{query}%") if query.present?
 
       # kinds、kid、rec で絞り込み
-      case type
-      when "vegetable", "meat", "seafood"
-        rel = rel.where(kinds: prod)
-      when "指定なし"
-        
+      
+      if %w[vegetable meat seafood].include?(type)
+        rel = rel.joins(:stocks).where(stocks: { assort: type }) #stockテーブル結合
       end
-      case prod
-      when "pizza", "side", "drink"
+
+  
+      if %w[pizza side drink].include?(prod)
         rel = rel.where(kinds: prod)
-      when "指定なし"
-        
       end
 
       case genre
