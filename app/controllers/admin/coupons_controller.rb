@@ -20,15 +20,22 @@ class Admin::CouponsController < Admin::Base
 
   # 会員の新規登録
   def create
-    @coupons = Coupon.new(params[:coupon])
-    @coupons.customer_id = params[:coupon][:customer_id] # 顧客IDを設定
-    if @coupons.save
-      redirect_to admin_coupons_path, notice: "クーポンを登録しました。"
+    @coupons = Coupon.new(coupon_params)
+    
+    if params[:coupon][:customer_id] == 'all'
+      Customer.find_each do |customer|
+        Coupon.create(name: @coupons.name, discount: @coupons.discount, customer_id: customer.id)
+      end
+      redirect_to admin_coupons_path, notice: "全顧客にクーポンを配布しました。"
     else
-      render "new"
+      @coupons.customer_id = params[:coupon][:customer_id]
+      if @coupons.save
+        redirect_to admin_coupons_path, notice: "クーポンを登録しました。"
+      else
+        render "new"
+      end
     end
   end
-
   def edit
     @coupons = Coupon.find(params[:id])
   end
@@ -37,6 +44,13 @@ class Admin::CouponsController < Admin::Base
    # 会員情報の更新
    def update
     @coupons = Coupon.find(params[:id])
+
+    if params[:coupon][:customer_id] == 'all'
+      Customer.find_each do |customer|
+        Coupon.create(name: @coupons.name, discount: @coupons.discount, customer_id: customer.id)
+      end
+      redirect_to admin_coupons_path, notice: "全顧客にクーポンを配布しました。"
+    else
     @coupons.customer_id = params[:coupon][:customer_id] # 顧客IDを設定
     @coupons.assign_attributes(params[:coupon])
    if @coupons.save
@@ -45,11 +59,16 @@ class Admin::CouponsController < Admin::Base
     render "index"
    end
   end
+end
 
   # 会員の削除
   def destroy
     @coupons = Coupon.find(params[:id])
     @coupons.destroy
   redirect_to :admin_coupons, notice: "クーポンを削除しました。"
+  end
+
+  def coupon_params
+    params.require(:coupon).permit(:name, :discount)
   end
 end

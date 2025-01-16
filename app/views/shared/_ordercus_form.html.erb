@@ -4,9 +4,14 @@
 <div class="toolbar"><%= link_to "注文ページに戻る", :orders %></div>
     <tr>
       <th><%= form.label :address, "配達先住所" %></th>
+      <% if current_customer %>
       <td><%= form.text_field :address, value: @order.address || current_customer.address %></td> 
+      <% else %>
+      <td><%= form.text_field :address, value: @order.address %></td> 
+      <% end %>
     </tr>
     <tr>
+    <% if current_customer %>
      <th><%= form.label :coupon_id, "クーポン" %></th>
      <td>     
      <% if @coupons.present? %>  
@@ -14,6 +19,7 @@
       include_blank: "クーポンを選択" %>   
      <% else %> 
      <p>クーポンを所持していません</p>
+     <% end %>
      <% end %>
      </td> 
     <tr>

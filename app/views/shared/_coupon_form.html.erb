@@ -11,7 +11,8 @@
   <tr>
     <th><%= form.label :customer_id, "顧客" %></th>
     <td>
-      <%= form.collection_select :customer_id, Customer.all, :id, :name, prompt: "顧客を選択" %>
+    <%= form.collection_select :customer_id, Customer.all, :id, :name, prompt: "顧客を選択" %>
+    <%= form.radio_button :customer_id, 'all' %> 全顧客
     </td>
   </tr>
 </table>

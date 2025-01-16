@@ -8,6 +8,7 @@
       <tr>
         <th>ユーザー名</th>
         <th>氏名</th>
+        <th>管理者</th>
         <th>操作</th>
       </tr>
     </thead>
@@ -16,9 +17,12 @@
         <tr>
           <td><%= member.name %></td>
           <td><%= member.fullname %></td>
+          <td><%= member.admin ? 'o' : '' %></td>
          <td>
+         <% if member.id != 1 %>
          <%= link_to "削除", [:admin, member], method: :delete,
          data: { confirm: "本当に削除しますか?"} %>
+         <% end %>
       </td>
       <% end %>
     </tbody>
@@ -27,3 +31,5 @@
 <% else %>
   <p>従業員の情報がありません。</p>
 <% end %>
+
+<p> [💡tips]OPユーザーは削除できません </p>

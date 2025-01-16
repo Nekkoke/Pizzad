@@ -7,10 +7,14 @@
   <%= menu_link_to "注文履歴",  [:orderhis, :account] %>
   <% end %>
   <%= menu_link_to "パスワードの変更", :edit_password %>
-
-  <% unless current_employee %>
+  <% if current_customer %>
   <%= link_to "退会", outcustomer_path(current_customer), method: :delete,
          data: { confirm: "本当に退会しますか?この操作は取り戻せません"} %>
+  <% elsif current_employee&.admin?  && current_employee.id != 1 %>
+  <%= link_to "退会", outcustomer_path(current_employee), method: :delete,
+         data: { confirm: "本当に退会しますか?この操作は取り戻せません"} %>
+  <% elsif current_employee.id == 1 %>
+  <p>OPユーザーは退会できません</p>
   <% end %>
 </ul>
 

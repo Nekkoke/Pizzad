@@ -51,15 +51,23 @@ class OrdersController < ApplicationController
   end
 
   def new
+    if current_customer
     @customer = current_customer
     @order = Order.new(address: @customer.address)  # 顧客の住所を初期値として設定
     @coupons = Coupon.where(customer_id: @customer.id)
+    else
+    @order = Order.new
+    end
   end
 
   # 注文情報追加
   def create
     @order = Order.new(order_params)
-    @order.customer = current_customer
+    if current_customer
+      @order.customer = current_customer
+    else
+      @order.customer_id = 999
+    end
     if params[:coupon_id].present?
       coupon = Coupon.find_by(id: params[:coupon_id])
     end

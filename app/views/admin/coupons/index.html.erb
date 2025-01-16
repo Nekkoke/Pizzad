@@ -13,6 +13,7 @@
       <tr>
         <th>名前</th>
         <th>割引率</th>
+        <th>所有者</th>
         <th>操作</th>
       </tr>
     </thead>
@@ -21,6 +22,7 @@
         <tr>
           <td><%= coupon.name %></td>
           <td><%= coupon.discount %></td>
+          <td><%= coupon.customer.name %></td>
          <td>
          <%= link_to "編集", [:edit, :admin, coupon] %> |
          <%= link_to "削除", [:admin, coupon], method: :delete,
