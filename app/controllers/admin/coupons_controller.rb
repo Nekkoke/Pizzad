@@ -21,6 +21,7 @@ class Admin::CouponsController < Admin::Base
   # 会員の新規登録
   def create
     @coupons = Coupon.new(params[:coupon])
+    @coupons.customer_id = params[:coupon][:customer_id] # 顧客IDを設定
     if @coupons.save
       redirect_to admin_coupons_path, notice: "クーポンを登録しました。"
     else
@@ -36,6 +37,7 @@ class Admin::CouponsController < Admin::Base
    # 会員情報の更新
    def update
     @coupons = Coupon.find(params[:id])
+    @coupons.customer_id = params[:coupon][:customer_id] # 顧客IDを設定
     @coupons.assign_attributes(params[:coupon])
    if @coupons.save
     redirect_to admin_coupons_path, notice: "クーポンを更新しました。"

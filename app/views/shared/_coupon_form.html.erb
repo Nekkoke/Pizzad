@@ -8,4 +8,10 @@
     <th><%= form.label :discount, "割引率"  %></th>
     <td><%= form.text_field :discount %></td>
   </tr>
+  <tr>
+    <th><%= form.label :customer_id, "顧客" %></th>
+    <td>
+      <%= form.collection_select :customer_id, Customer.all, :id, :name, prompt: "顧客を選択" %>
+    </td>
+  </tr>
 </table>

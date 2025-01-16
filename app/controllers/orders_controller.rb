@@ -3,6 +3,15 @@ class OrdersController < ApplicationController
     # カートが未定義なら0をデフォルト値とするHashで初期化（キーは商品ID、値は数量）
     session[:cart] ||= []
 
+    @product = Product.find(params[:item_id])
+
+    # 商品が非公開の場合
+    if !@product.published
+      flash[:alert] = "この商品は現在販売されていません。"
+      redirect_to orders # ordersページにリダイレクト
+      return # 処理を終了
+    end
+
     # 新しい商品データ
     item = {
       order_id: session[:order_id], #注文情報に
@@ -44,15 +53,24 @@ class OrdersController < ApplicationController
   def new
     @customer = current_customer
     @order = Order.new(address: @customer.address)  # 顧客の住所を初期値として設定
+    @coupons = Coupon.where(customer_id: @customer.id)
   end
 
   # 注文情報追加
   def create
     @order = Order.new(order_params)
-    @order.customer = current_customer 
-    @order.price = params[:order][:price] # 合計金額を設定
+    @order.customer = current_customer
+    if params[:coupon_id].present?
+      coupon = Coupon.find_by(id: params[:coupon_id])
+    end
+      if coupon 
+        @order.price = calculate_discount(params[:order][:price], coupon.discount) # 合計金額を設定
+        coupon.destroy 
+      else
+        @order.price = params[:order][:price]
+      end
     @order.state = 'prepare' # 状態を'prepare'に設定
-    @order.store = params[:order][:store]
+    @order.store = params[:order][:store] 
   if @order.save
     render "orders/orderfin", notice: "注文が完了しました。"
   
@@ -76,4 +94,9 @@ class OrdersController < ApplicationController
   def order_params
     params.require(:order).permit(:store, :address)  # storeとaddressを許可
   end
+end
+
+def calculate_discount(price, discount)
+  price = price.to_f 
+  price - (price * discount / 100.0).round
 end

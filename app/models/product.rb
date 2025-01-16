@@ -2,7 +2,7 @@ class Product < ApplicationRecord
     has_one_attached :profile_picture #画像用x
     attribute :new_profile_picture
     has_many :toppings, dependent: :destroy
-    has_many :stocks, through: :toppings
+    has_many :stocks, through: :toppings 
 
     validates :name, presence: true,
     length: { maximum: 20, allow_blank: true },

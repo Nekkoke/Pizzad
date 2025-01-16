@@ -152,6 +152,7 @@ ActiveRecord::Schema[7.0].define(version: 2024_12_26_101039) do
   create_table "toppings", force: :cascade do |t|
     t.integer "product_id", null: false
     t.integer "stock_id", null: false
+    t.integer "quantity", default: 0
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.index ["product_id"], name: "index_toppings_on_product_id"

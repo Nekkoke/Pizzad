@@ -46,6 +46,8 @@
       <div>
         <%= cb.check_box %>
         <%= cb.label %>
+         <%= text_field_tag "stock_quantities[#{cb.object.id}]", 0, size: 3,
+         class: "stock-quantity" %> 
       </div>
     <% end %>
   </td>
@@ -59,4 +61,30 @@
    <td><%= form.file_field :new_profile_picture %></td>
   </tr>
 </table>
+
+<%= javascript_tag do %>
+  document.addEventListener('submit', function(event) {
+    let invalid = false;
+
+    // チェックされた材料に対応する数量入力欄のみを対象にする
+    document.querySelectorAll('.stock-quantity').forEach(function(input) {
+      const checkbox = input.closest('div').querySelector('input[type="checkbox"]'); // 対応するチェックボックスを取得
+      if (checkbox && checkbox.checked) { // チェックされている場合のみ数量を検証
+        if (parseInt(input.value) <= 0 || isNaN(parseInt(input.value))) {
+          invalid = true;
+          input.style.borderColor = 'red'; // エラーを赤枠で表示
+        } else {
+          input.style.borderColor = ''; // 正常な場合は枠を元に戻す
+        }
+      }
+    });
+
+    if (invalid) {
+      event.preventDefault(); // 数量が不正なら送信を中止
+      alert("材料の数量は0より大きい値でなければなりません。");
+      window.location.reload();
+    }
+  });
+<% end %>
+
 

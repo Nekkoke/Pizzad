@@ -19,12 +19,18 @@ class Admin::ProductsController < Admin::Base
     @stocks = Stock.all
   end
 
-  # 会員の新規登録
   def create
     @products = Product.new(params[:product])
     @kinds = ['pizza', 'side', 'drink']
     @stocks = Stock.all
+    selected_stock_ids = params[:product][:stock_ids].reject(&:blank?) #チェックのみ.空白除外
+    stock_quantities = params[:stock_quantities]|| {}
     if @products.save
+      @products.toppings.destroy_all
+      selected_stock_ids.each do |stock_id|
+        quantity = stock_quantities[stock_id].to_i
+        Topping.create!(product_id: @products.id, stock_id: stock_id, quantity: quantity)
+      end
       redirect_to admin_products_path, notice: "商品を登録しました。"
     else
       render "new"
@@ -38,13 +44,22 @@ class Admin::ProductsController < Admin::Base
   end
 
 
-   # 会員情報の更新
+
    def update
     @products = Product.find(params[:id])
     @kinds = ['pizza', 'side', 'drink']
     @stocks = Stock.all
     @products.assign_attributes(params[:product])
+    selected_stock_ids = params[:product][:stock_ids].reject(&:blank?)
+    stock_quantities = params[:stock_quantities] || {}
+
+    # 既存のToppingデータを削除して新しいものを保存（更新時）
+    @products.toppings.destroy_all
    if @products.save
+    selected_stock_ids.each do |stock_id|
+      quantity = stock_quantities[stock_id].to_i
+      Topping.create!(product_id: @products.id, stock_id: stock_id, quantity: quantity)
+    end
     redirect_to admin_products_path, notice: "商品情報を更新しました。"
    else
     render "index"

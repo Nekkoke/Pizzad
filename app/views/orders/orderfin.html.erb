@@ -67,7 +67,7 @@
     </tbody>
   </table>
 
-  <p><strong>合計金額:</strong> <%= number_to_currency(total_price, unit: "¥", precision: 0) %></p>
+  <p><strong>合計金額(割引込み):</strong> <%= number_to_currency(@order.price, unit: "¥", precision: 0) %></p>
 
 <% else %>
   <p>どうやって来たんですか...？</p>
