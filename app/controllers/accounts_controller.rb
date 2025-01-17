@@ -17,7 +17,7 @@ def create
   @customer = Customer.new(params[:account])
   if @customer.save
     cookies.signed[:customer_id] = {value: @customer.id, expires: 1.day.from_now} #右：cookieの情報
-    redirect_to root_path, notice: "会員を登録しました。"
+    redirect_to :account, notice: "会員を登録しました。"
   
    else
     render "new"

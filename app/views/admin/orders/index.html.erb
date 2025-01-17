@@ -6,7 +6,8 @@
     <%= select_tag "q", options_for_select([
       ["指定なし", "指定なし"],
       ["prepare", "prepare"],
-      ["arrived", "arrived"]
+      ["arrived", "arrived"],
+      ["canceled", "canceled"]
     ], selected: "指定なし"), include_blank: false %>
       <%= submit_tag "検索" %>
     <% end %>

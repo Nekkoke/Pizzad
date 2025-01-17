@@ -62,7 +62,7 @@ class Admin::ProductsController < Admin::Base
     end
     redirect_to admin_products_path, notice: "商品情報を更新しました。"
    else
-    render "index"
+    render "new"
    end
   end
 

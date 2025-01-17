@@ -1,3 +1,6 @@
+<p>[テスター向け]初期状態では一般会員はtaro, asagao!、従業員はJiro, pizzad <br>
+    　　　　　　   管理者はTaro, pizzadでログインできます</p>
+
 <% if current_customer.nil? && current_employee.nil? %>
 <h1>ログインフォーム[一般会員]</h1>
 <% if flash.alert %><p class="alert"><%= flash.alert %></p><% end %>
@@ -42,5 +45,6 @@
 
 
 <br>
-
     <%= image_tag "coupon.png", width: 700, height: 130 %>
+
+    

@@ -4,7 +4,7 @@ class SecsessionsController < ApplicationController
         if employee&.authenticate(params[:password])
           cookies.signed[:employee_id] = {value: employee.id, expires: 9999.seconds.from_now 
           }
-          redirect_to :products
+          redirect_to :admin_root
         else
           flash[:alert] = "名前かパスワードが一致しません"
           redirect_to :root

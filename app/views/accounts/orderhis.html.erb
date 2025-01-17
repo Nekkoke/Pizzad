@@ -24,10 +24,10 @@
           <td><%= order.state %></td>
          <td>
          <% if order.state == "prepare" %>
-         <%= link_to "取消", order, method: :delete,
-         data: { confirm: "本当に削除しますか?"} %>
+         <%= link_to "取消", cancel_order_path(order), method: :patch,
+          data: { confirm: "本当に注文をキャンセルしますか?" } %>
          <% else %>
-         <span class="disabled">　-</span>
+           <span class="disabled">　-</span>
          <% end %>
       </td>
       <% end %>

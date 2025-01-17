@@ -6,6 +6,23 @@ class OrdersController < ApplicationController
     redirect_to orders_url, notice: "カートをクリアしました。"
   end
 
+  def destroy
+    @orders = Order.find(params[:id])
+    @orders.destroy
+    redirect_to [:orderhis, :account], notice: "注文情報を削除しました。"
+  end
+
+  def cancel
+    @order = Order.find(params[:id])
+    
+    if @order.state == "prepare"  # "preparing"状態の注文のみキャンセルできるようにする
+      @order.update(state: "canceled")
+      redirect_to [:orderhis, :account], notice: "注文がキャンセルされました。"
+    else
+      redirect_to [:orderhis, :account], alert: "この注文はキャンセルできません。"
+    end
+  end
+
   def add
     # カートが未定義なら0をデフォルト値とするHashで初期化（キーは商品ID、値は数量）
     session[:cart] ||= []
@@ -34,7 +51,7 @@ class OrdersController < ApplicationController
       existing_item = session[:cart].find do |cart_item|
         cart_item["item_id"] == item[:item_id] &&
           cart_item["size"] == item[:size] &&
-          cart_item["topping"] == item[:topping]
+          cart_item["toppings"] == item[:toppings] #sをつけて配列として扱う
       end
 
       #在庫チェック
@@ -46,6 +63,7 @@ class OrdersController < ApplicationController
       if existing_item 
         # 同じ商品があれば数量を追加
         existing_item["quantity"] += item[:quantity]
+        redirect_to products_path, notice: "商品をカートに追加しました。"     
       else
         # 新しい商品として追加
         session[:cart] << item
@@ -151,12 +169,6 @@ class OrdersController < ApplicationController
     end
   end
 
-  def destroy
-    @orders = Order.find(params[:id])
-    @orders.destroy
-    redirect_to [:orderhis, :account], notice: "注文情報を削除しました。"
-  end
-
   def order_params
     params.require(:order).permit(:store, :address)  # storeとaddressを許可
   end
@@ -217,3 +229,4 @@ class OrdersController < ApplicationController
     true  # 全ての在庫が足りていればtrueを返す
   end
 end
+

@@ -27,7 +27,7 @@
                   <% adjusted_price += 80 %> 
                 <% when "チキン追加(¥150)" %>
                   <% adjusted_price += 150 %> 
-                <% when "チキン追加(¥150)" %>
+                <% when "イカ(¥150)" %>
                   <% adjusted_price += 150 %>
               <% end %>
         <tr>
@@ -77,6 +77,11 @@
   <% end %>
   <% if current_employee %>
   <p>注文は一般会員である必要があります</p>
+  <% end %>
+
+  <% if !current_customer && !current_employee %>
+  <%= link_to "注文へ", new_order_path(current_customer), 
+    class: "btn btn-decide" %>
   <% end %>
 
 

@@ -13,6 +13,10 @@ Rails.application.routes.draw do
         collection do
         delete :clear_cart #カートをクリア
         end
+
+        member do
+          patch :cancel  
+        end
     end
 
     #退会用

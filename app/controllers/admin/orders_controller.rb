@@ -1,5 +1,5 @@
 class Admin::OrdersController < Admin::Base
-  # 会員一覧
+
   def index
     @orders = Order.order("id")
       .page(params[:page]).per(15)
@@ -15,26 +15,28 @@ class Admin::OrdersController < Admin::Base
   end
 
   def edit
-    @orders = Order.find(params[:id])
+    @orders = Order.find_by(params[:id])
     @states = ['preparing', 'arrived']
   end
 
 
-   # 会員情報の更新
    def update
-    @orders = Order.find(params[:id])
+    @orders = Order.find_by(params[:id])
     @orders.assign_attributes(params[:order])
    if @orders.save
-    redirect_to admin_orders_path, notice: "注文情報を更新しました。"
+    if @orders.state == "canceled"
+      redirect_to admin_orders_path, notice: "注文がキャンセルされました。ひどい" #うまく表示されない
+    else
+      redirect_to admin_orders_path, notice: "注文情報を更新しました。"
+    end
    else
     render "index"
    end
   end
 
-  # 会員の削除
   def destroy
-    @orders = Order.find(params[:id])
+    @orders = Order.find(params[:id]) 
     @orders.destroy
-  redirect_to :admin_orders, notice: "注文情報を削除しました。"
+      redirect_to :admin_orders, notice: "注文情報を削除しました。"
   end
 end

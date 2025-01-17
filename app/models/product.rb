@@ -10,7 +10,7 @@ class Product < ApplicationRecord
     validates :price, presence: true, numericality: 
     { 
      only_integer: true,
-     greater_than: 0,
+     greater_than_or_equal_to: 0,
      less_than_or_equal_to: 9999  
     }
     validates :explanation, presence: true, length: { maximum: 200, allow_blank: true }
@@ -37,7 +37,8 @@ class Product < ApplicationRecord
           rel = order("id")
           
       # 名前で絞り込み
-      rel = rel.where("name LIKE ?", "%#{query}%", "%#{query}%", "%#{query}%") if query.present?
+      rel = rel.where(["name LIKE ? OR name LIKE ? OR name LIKE ?", "%#{query}%", "%#{query}%", "%#{query}%"]) if query.present?
+
 
       # kinds、kid、rec で絞り込み
       

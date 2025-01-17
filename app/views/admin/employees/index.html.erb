@@ -19,7 +19,7 @@
           <td><%= member.fullname %></td>
           <td><%= member.admin ? 'o' : '' %></td>
          <td>
-         <% if member.id != 1 %>
+         <% if member.id != 1 && member.id != current_employee.id%>
          <%= link_to "削除", [:admin, member], method: :delete,
          data: { confirm: "本当に削除しますか?"} %>
          <% end %>
