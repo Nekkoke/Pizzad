@@ -2,7 +2,7 @@ class Coupon < ApplicationRecord
   belongs_to :customer
 
   validates :name, presence: true,
-      length: { maximum: 20, allow_blank: true }
+      length: { maximum: 19, allow_blank: true }
   validates :discount, presence: true, 
     numericality: { 
         only_integer: true, 

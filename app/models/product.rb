@@ -10,10 +10,10 @@ class Product < ApplicationRecord
     validates :price, presence: true, numericality: 
     { 
      only_integer: true,
-     greater_than_or_equal_to: 0,
+     greater_than_or_equal_to: 1,
      less_than_or_equal_to: 9999  
     }
-    validates :explanation, presence: true, length: { maximum: 200, allow_blank: true }
+    validates :explanation, presence: true, length: { maximum: 199, allow_blank: true }
 
     validate if: :new_profile_picture do
       if new_profile_picture.respond_to?(:content_type)

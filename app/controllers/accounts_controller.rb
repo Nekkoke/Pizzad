@@ -40,7 +40,7 @@ end
    if @customer.save
     redirect_to account_path, notice: "プロフィールを更新しました。"
    else
-    render "index"
+    render "new"
    end
   else
       @customer = current_employee

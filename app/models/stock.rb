@@ -4,7 +4,7 @@ class Stock < ApplicationRecord
 
 
   validates :name, presence: true,
-                   length: { maximum: 20, allow_blank: true },
+                   length: { maximum: 19, allow_blank: true },
                    uniqueness: { case_sensitive: false }
   validates :number, presence: true, numericality: { only_integer: true, greater_than_or_equal_to: 0 }
   validates :assort, presence: true, inclusion: { in: ['vegetable', 'meat', 'seafood', 'others'] }
